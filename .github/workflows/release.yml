@@ -1,4 +1,5 @@
-name: xray 版本发布
+
+name: release 自动发布
 
 env:
   TZ: Asia/Shanghai
@@ -8,15 +9,30 @@ on:
   workflow_dispatch:
   push:
     branches: 
-      - main
-
-# 开始任务
+      - upload
 jobs:
-   release-please:
-     runs-on: ubuntu-latest
-     steps:
-       - uses: GoogleCloudPlatform/release-please-action@v2
-         with:
-           token: ${{ secrets.TOKEN }}
-           release-type: node
-           package-name: test-release-please-action
+  main:
+    runs-on: macos-latest
+    steps:
+# 开始任务
+      - name: sleep1200秒拉取upload，更新release
+        run: |
+          mkdir /Users/Shared/xray
+          mkdir /Users/Shared/xray/upload
+          cd /Users/Shared/xray/upload
+          wget https://github.com/xinb/Xray-core/archive/upload.zip
+          unzip upload.zip
+          cd /Users/Shared/xray/upload/Xray-core-upload
+          mv /Users/Shared/xray/upload/Xray-core-upload/* /Users/Shared/xray/upload
+          rm -r -f Xray-core-upload
+          rm -r -f upload.zip
+      - name: Update release
+        uses: johnwbyrd/update-release@v1.0.0
+        with:
+          tag: auto
+          release: AutoBuilding
+          prerelease: true
+          message: test
+          body: 更改包名，保留未压缩版本，支持更多系统、架构。此发布为Github Action自动创建
+          token: ${{ secrets.TOKEN }}
+          files: /Users/Shared/xray/upload/Xray-upx-Macos-64.zip /Users/Shared/xray/upload/Xray-Android-arm64.zip /Users/Shared/xray/upload/Xray-freebsd-32.zip /Users/Shared/xray/upload/Xray-freebsd-64.zip /Users/Shared/xray/upload/Xray-freebsd-arm32.zip /Users/Shared/xray/upload/Xray-freebsd-arm64.zip /Users/Shared/xray/upload/Xray-Linux-32.zip /Users/Shared/xray/upload/Xray-Linux-64.zip /Users/Shared/xray/upload/Xray-Linux-arm32.zip /Users/Shared/xray/upload/Xray-Linux-arm64.zip /Users/Shared/xray/upload/Xray-Linux-mips32.zip /Users/Shared/xray/upload/Xray-Linux-mips32le.zip /Users/Shared/xray/upload/Xray-Linux-mips64.zip /Users/Shared/xray/upload/Xray-Linux-mips64le.zip /Users/Shared/xray/upload/Xray-Linux-ppc64.zip /Users/Shared/xray/upload/Xray-Linux-ppc64le.zip /Users/Shared/xray/upload/Xray-Linux-riscv64.zip /Users/Shared/xray/upload/Xray-Linux-s390x.zip /Users/Shared/xray/upload/Xray-Macos-64.zip /Users/Shared/xray/upload/Xray-openbsd-32.zip /Users/Shared/xray/upload/Xray-openbsd-64.zip /Users/Shared/xray/upload/Xray-openbsd-arm32.zip /Users/Shared/xray/upload/Xray-openbsd-arm64.zip /Users/Shared/xray/upload/Xray-upx-Linux-32.zip /Users/Shared/xray/upload/Xray-upx-Linux-64.zip /Users/Shared/xray/upload/Xray-upx-Linux-arm32.zip /Users/Shared/xray/upload/Xray-upx-Linux-arm64.zip /Users/Shared/xray/upload/Xray-upx-Linux-mips32.zip /Users/Shared/xray/upload/Xray-upx-Linux-mips32le.zip /Users/Shared/xray/upload/Xray-upx-Linux-ppc64.zip /Users/Shared/xray/upload/Xray-upx-Linux-ppc64le.zip /Users/Shared/xray/upload/Xray-upx-windows-32.zip /Users/Shared/xray/upload/Xray-upx-windows-64.zip /Users/Shared/xray/upload/Xray-windows-32.zip /Users/Shared/xray/upload/Xray-windows-64.zip /Users/Shared/xray/upload/Xray-windows-arm32.zip
