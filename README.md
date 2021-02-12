@@ -4,6 +4,7 @@ linux包中增加system service项。
 详情移步
 https://github.com/XTLS/Xray-core
 本仓库仅编译、保存、备份代码。
+功能完善后尝试pull request
 # Project X
 
 [Project X](https://github.com/XTLS) originates from XTLS protocol, provides a set of network tools such as [Xray-core](https://github.com/XTLS/Xray-core) and [Xray-flutter](https://github.com/XTLS/Xray-flutter).
