@@ -162,5 +162,4 @@ jobs:
           file: ./Xray-${{ steps.get_filename.outputs.ASSET_NAME }}.zip*
           asset_name: Xray-core ${{ github.ref }}
           tag: ${{ github.ref }}
-          file_glob: true
           overwrite: true
