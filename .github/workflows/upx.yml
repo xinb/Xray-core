@@ -159,7 +159,7 @@ jobs:
         if: github.event_name == 'release'
         with:
           repo_token: ${{ secrets.GITHUB_TOKEN }}
-          file: ./Xray-${{ steps.get_filename.outputs.ASSET_NAME }}.zip*
+          file: ./Xray-upx-${{ steps.get_filename.outputs.ASSET_NAME }}.zip*
           asset_name: Xray-core ${{ github.ref }}
           tag: ${{ github.ref }}
           overwrite: true
